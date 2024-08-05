@@ -59,7 +59,7 @@ def run(options: SortOptions):
         r = warning_get_user_input(f'Output directory "{options.output}" contains folders or files. Do you wish to delete, append or cancel? (D/A/C)')
 
         if r.lower()[0] == 'd':
-            r = warning_get_user_input(f'ALL FOLDERS AND FILES IN THE OUTPUT DIRECTORY "{options.output}" WILL BE PERMANENTLY DELETED. Do you wish to continue? (Y/N)')
+            r = warning_get_user_input(f'ALL FOLDERS AND FILES IN THE OUTPUT DIRECTORY "{options.output}" ({helper.format_folder_size(helper.get_folder_size(options.output))}) WILL BE PERMANENTLY DELETED. Do you wish to continue? (Y/N)')
 
             if r.lower()[0] != 'y':
                 logger.info('Canceled!')

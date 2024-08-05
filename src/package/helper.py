@@ -1,6 +1,7 @@
 
 import logging
 import re
+import os
 
 def is_regex(pattern: str):
     try:
@@ -8,7 +9,18 @@ def is_regex(pattern: str):
         return True
     except re.error:
         return False
-    
+
+def get_folder_size(path):
+    size = 0
+    for path, dirs, files in os.walk(path):
+        for f in files:
+            fp = os.path.join(path, f)
+            size += os.path.getsize(fp)
+    return size
+
+def format_folder_size(bytes: int, units=[' bytes','KB','MB','GB','TB', 'PB', 'EB']):
+    return str(bytes) + units[0] if bytes < 1024 else format_folder_size(bytes>>10, units[1:]) if units[1:] else f'{bytes>>10}ZB'
+
 class CustomFormatter(logging.Formatter):
     grey = "\x1b[30m"
     blue = "\x1b[36m"
